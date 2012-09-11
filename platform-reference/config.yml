@@ -1,0 +1,83 @@
+book:
+    title:            "Dynacase 3.2 developement guide"
+    author:           "Anakeen Labs &lt;labs@anakeen.com&gt;"
+    edition:          "3.2 révision 1"
+    language:         fr
+    publication_date: ~
+
+    generator: { name: easybook, version: 4.4 }
+
+    contents:
+        # available content types: acknowledgement, afterword, appendix, author,
+        # chapter, conclusion, cover, dedication, edition, epilogue, foreword,
+        # glossary, introduction, license, lof (list of figures), lot (list of
+        # tables), part, preface, prologue, title, toc (table of contents)
+        - { element: cover }
+        - { element: edition }
+        - { element: license, content: license.md }
+        - { element: author, content: author.md }
+        - { element: toc   }
+        - { element: glossary }
+        - { element: chapter, number:  1, content: preamble.md }
+        - { element: chapter, number:  2, content: introduction.md }
+        - { element: chapter, number:  3, content: concepts.md }
+        - { element: chapter, number:  4, content: mecanism.md }
+        - { element: chapter, number:  4.1, content: families.md }
+        - { element: chapter, number:  4.2, content: attributes.md }
+        - { element: chapter, number:  5, content: functions.md }
+        - { element: chapter, number:  5.1, content: functions-tools.md }
+        - { element: chapter, number:  6, content: classes.md }
+        - { element: chapter, number:  6.1, content: general.md }
+        - { element: chapter, number:  6.2, content: classDoc.md }
+        - { element: chapter, number:  7, content: layout.md }
+        - { element: chapter, number:  7.1, content: layout-general.md }
+        - { element: chapter, number:  7.2, content: layout-html.md }
+        - { element: chapter, number:  7.3, content: layout-print.md }
+        - { element: chapter, number:  5, content: debugging.md }
+        - { element: appendix, number:  A1, content: system-families.md }
+        - { element: appendix, number:  A2, content: biblio.md }
+        - { element: lof   }
+        - { element: lot   }
+
+    editions:
+
+        web:
+            format:         html
+            highlight_code: true
+            include_styles: true
+            labels:         []
+            theme:          anakeen
+            toc:
+                deep:       3
+                elements:   ["figure", "table"]
+
+        website:
+            extends:        web
+            format:         html_chunked
+            highlight_code: true
+
+        ebook:
+            format:         epub
+            highlight_code: false
+            include_styles: true
+            labels:         ['appendix', 'chapter']
+            toc:
+                deep:       1
+                elements:   ["appendix", "chapter"]
+
+        print:
+            format:         pdf
+            include_styles: true
+            highlight_code: true
+            isbn:           ~
+            labels:         ['figure', 'chapter']
+            margin:
+                top:        25mm
+                bottom:     25mm
+                inner:      30mm
+                outter:     20mm
+            page_size:      A4
+            toc:
+                deep:       2
+                elements:   ["chapter"]
+            two_sided:      true
