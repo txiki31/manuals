@@ -1,4 +1,3 @@
-
 Manuel de référence
 
 # Préambule
@@ -36,9 +35,9 @@ Manuel de référence
 
 ## DocManager
 
-### Introduction
+lkqs,qskdjl ssdqùsl dkùqsldksqùdkqsùdkqsùdmk ùv,ùms,fdvml
 
-### <méthode>
+### &lt;méthode>
 
     1) Nom  
     2) L'applicabilité ( marquer new / deprecated )
