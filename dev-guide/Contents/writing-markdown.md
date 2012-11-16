@@ -2,70 +2,40 @@
 
 ## Introduction
 
-Dans ce document, nous allons aborder :
+Ce document aborde les points suivants :
 
--   le choix de markdown comme outil rédiger la documentation de
-    Dynacase,
--   la syntaxe markdown utilisée pour la rédaction de la documentation,
--   les outils pour produire du markdown et avoir un premier aperçu,
--   les outils pour publier le markdown et le mettre à disposition de
-    DocDygen
+* Les règles de rédaction;
+* Le glossaire;
+* L'organisation du travail et les outils de production;
+* La syntaxe markdown;
+* Des annexes
 
-## Le choix de markdown
+## Les règles de rédaction
 
-Lors des choix pour la réalisation de la documentation, nous voulions un
-moyen de produire de la documentation qui combine les différents points
-suivants :
+Pour l'instant les règles identifiées sont :
 
--   facilité de rédaction,
--   simplicité de mise en page,
--   possibilité de réaliser la documentation par un ensemble d'éléments
-    unitaires facilement identifiables et composables,
--   possibilité d'établir un diff entre deux versions d'un élément de
-    documentation.
+* Il faut utiliser, autant que possible, le présent de vérité générale, car il exprime qu'un fait est vrai dans sa globalité quelque soit le contexte,
+* Il faut éviter d'utiliser les pronoms : je, tu, nous <class ="fixme CBO"> Eric, Yannick ? Expliquer ce choix</a>,
 
-Nous avons étudié les différents moyen de production à notre disposition
-et retenu markdown. Markdown est :
+## Le glossaire
 
-> Markdown est un langage de balisage léger créé par John Gruber et
-> Aaron Swartz. Le but de la syntaxe Markdown est d'offrir une syntaxe
-> facile à lire et à écrire. C'est-à-dire qu'un document formaté selon
-> Markdown devrait pouvoir être publié comme tel, en texte, sans donner
-> l’impression qu’il a été marqué par des balises ou des instructions de
-> formatage. Bien que la syntaxe Markdown ait été influencée par
-> plusieurs filtres de conversion de texte vers HTML existants —
-> incluant Setext, atx, Textile, reStructuredText, Grutatext et EtText —
-> la source d’inspiration principale de la syntaxe Markdown est le
-> format du courrier électronique en mode texte.
+Consultation
+:   Exprime la modalité permettant uniquement de consulter un document
 
-dixit wikipedia.
+Modification
+:   Exprime la modalité d'édition/modification d'un document
 
-Nous avons plus précisément retenu une variante de markdown qui est
-celle utilisée par le logiciel de conversion
-[pandoc](http://johnmacfarlane.net/pandoc/). Cette syntaxe nous semble
-idéal car elle permet :
+Lignée documentaire
+:   C'est l'ensemble des révisions d'un document
 
--   une mise en forme simple mais précise,
--   elle est stockée dans un fichier texte,
--   elle permet l'export vers au moins les trois formats suivants :
-    -   html,
-    -   odt,
-    -   pdf
-
--   et un document markdown est lisible tel quel sans traitement
-    particulier par quelqu'un ne connaissant pas la syntaxe
-
-## La syntaxe markdown-pandoc
+## La syntaxe markdown
 
 Nous allons maintenant voir différents points basiques de la syntaxe
 pandoc-markdown.
 
 ### Paragraphe
 
-Un paragraphe est une ou plusieurs lignes de textes suivi de un ou
-plusieurs saut de ligne. Si vous avez besoin d'un saut de ligne au
-milieu d'un paragraphe deux syntaxes sont possibles : deux espaces ou \\
-suivi d'un saut de ligne.
+Un paragraphe est une ou plusieurs lignes de textes suivi de un ou plusieurs saut de ligne. Si vous avez besoin d'un saut de ligne au milieu d'un paragraphe deux syntaxes sont possibles : deux espaces ou \\ suivi d'un saut de ligne.
 
 ### Titre et sous titre
 
@@ -81,7 +51,7 @@ Il est possible de mettre en évidence du texte de manière différentes.
 
 L'emphase en utilisant la syntaxe suivante :
 
-    *Ceci merite votre attention*
+    *Ceci mérite votre attention*
 
 L'emphase importante en utilisant la syntaxe suivante :
 
@@ -311,56 +281,30 @@ suivante :
 
 <http://johnmacfarlane.net/pandoc/README.html>
 
-## Les outils de production local
+## Annexes
 
-Lorsque vous rédigez un texte en markdown. Il est pratique de pouvoir
-jeter rapidement un coup d'œil sur le HTML produit pour voir s'il
-correspond bien à ce que l'on attend.
+### Le choix de markdown
 
-Nous allons donc voir comment mettre en place rapidement une chaîne
-éditorial locale. Il vous faudra pour cela deux outils :
+Lors des choix pour la réalisation de la documentation, nous voulions un moyen de produire de la documentation qui combine les différents points suivants :
 
--   pandoc : dans sa dernière version,
--   le package markdown-pandoc pour gedit.
+-   La rédaction est facilitée de rédaction par la syntaxe;
+-   La mise en page est simplifiée;
+-   Le format permet de réaliser la documentation en composant un ensemble d'éléments unitaires facilement identifiables;
+-   possibilité d'établir un diff entre deux versions d'un élément de documentation;
+-   et que le document soit lisible tel quel sans traitement particulier par quelqu'un ne connaissant pas la syntaxe.
 
-Pour l'installation de pandoc, il vous faut tout d'abord installer
-haskell-platform et cabal, ceux-ci sont généralement livré dans les
-paquets d'installation des distribution Linux.\
-Vous devez ensuite effectuer les deux commandes suivantes :
+Nous avons étudié les différents moyen de production à notre disposition et retenu markdown car il est :
 
-    cabal update
-    cabal install pandoc -fhighlighting
+> Markdown est un langage de balisage léger créé par John Gruber et
+> Aaron Swartz. Le but de la syntaxe Markdown est d'offrir une syntaxe
+> facile à lire et à écrire. C'est-à-dire qu'un document formaté selon
+> Markdown devrait pouvoir être publié comme tel, en texte, sans donner
+> l’impression qu’il a été marqué par des balises ou des instructions de
+> formatage. Bien que la syntaxe Markdown ait été influencée par
+> plusieurs filtres de conversion de texte vers HTML existants —
+> incluant Setext, atx, Textile, reStructuredText, Grutatext et EtText —
+> la source d’inspiration principale de la syntaxe Markdown est le
+> format du courrier électronique en mode texte.
 
-Si cabal n'est pas à jour, vous pouvez utilisez la commande suivante :
+dixit wikipedia.
 
-    sudo cabal install --prefix=/usr cabal-install
-
-Ces éléments sont installés pour l'utilisateur en cours, il vous faut
-donc ensuite créer les liens symboliques suivants :
-
-    sudo ln -s /home/user/.cabal/bin/pandoc /usr/local/bin/pandoc
-    sudo ln -s /home/user/.cabal/bin/markdown2pdf /usr/local/bin/markdown2pdf
-
-Si vous souhaitez installer pandoc en root, vous pouvez utilisez la
-commande suivante:
-
-    cabal install --prefix=/usr pandoc --fhighlighting
-
-Vous avez maintenant accès aux deux commandes pandoc et markdown2pdf.
-
-Pour finir votre chaine éditorial, il vous reste à télécharger et
-exécuter le package gedit-markdown. Vous pouvez le trouver à l'adresse
-suivante :
-
-<https://github.com/cbonnissent/gedit-markdown>
-
-Vous pouvez soit le cloner avec git, soit le télécharger zippé dans les
-deux cas une fois prêt. Vous n'avez plus qu'à lancer le script
-gedit-markdown.sh et à répondre aux questions.\
-Une fois cet élément installé votre gedit va coloriser le markdown (mais
-pas les éléments spécifiques à pandoc) et vous pourrez avoir un preview
-de votre document avec le raccourcis clavier <Maj+Alt+P\>.
-
-## Les outils de publication sur DocDygen
-
-Voir la documentation de DocDygen.
