@@ -28,6 +28,42 @@ Modification
 Lignée documentaire
 :   C'est l'ensemble des révisions d'un document
 
+module
+:   Un module Dynacase contient la définition et l'ensemble des éléments nécessaires au fonctionnement de zéro, une ou plusieurs applications. Elle contient la définition et l'ensemble des éléments nécessaires (cycle de vie, profil, ….) à l'utilisation de zéro, une ou plusieurs familles.
+
+application
+:   Une application Dynacase permet de couvrir une fonctionnalité spécifique au système documentaire (exemple: gestion des utilisateurs, administration des contrôle qualité). Une application utilise souvent une ou plusieurs familles de document afin de réaliser leurs fonctions. Une application Dynacase est composée de une à plusieurs actions. Une application possède généralement une interface principale qui permet d'accéder à l'ensemble des actions nécessaires à l'application. Une application est accessible directement par une url directe et est considéré comme autonome vis-à-vis d'autre application.
+
+action
+:   Une action Dynacase réalise une fonction d'une application. Cette action reçoit des paramètres, réalise un traitement et retourne le résultat de ce traitement. L'action Dynacase est composée de deux parties : le traitement et la représentation du résultat du traitement. Chacune de ses deux parties est optionnelle mais il en faut au moins une des deux. Le traitement est réalisé à l'aide d'une fonction PHP qui utilise des fonctions de l'API Dynacase. La représentation est réalisée à l'aide d'un template (appelé aussi layout). Ce template permet de réaliser des sorties HTML avec des parties dynamiques.
+
+interface
+:   L'interface Dynacase est la représentation d'une action.
+
+template, layout
+:   Le template est le modèle de représentation. Ce modèle est généralement du HTML avec des parties dynamiques qui sont construite dans le traitement de l'action. Ce modèle peut aussi être n'importe de n'importe quel type ascii tel que csv ou xml.  Le seul modèle binaire possible est le format openDocumentText. Ce type de modèle permet d'avoir des représentations utilisables pour des besoins d'impressions. Ces modèles sont utilisés pour les représentations des actions et aussi pour les vues de documents.
+
+zone
+:   Une zone Dynacase est une action qui ne peut pas être appelée directement depuis l'interface principale. Une zone peut être considéré comme un fragment d'action. Sa représentation est souvent un fragment HTML (le contenu d'une DIV ou d'une TABLE). La zone est réutilisable dans différentes représentations d'actions. Elle permet de réutiliser des fragments d'interfaces dans les différentes interfaces de haut niveau. Une zone peut elle aussi faire référence à d'autres zones. On peut ainsi assembler des interfaces avec des niveaux différents réutilisable.
+
+document
+:   Le document Dynacase contient un ensemble structuré d'informations. Il peut être associé à un cycle de vie et porte ses propres paramètres de sécurité d'accès. Un document est toujours associé à une famille de document.
+
+attribut
+:   Un attribut de document défini un type syntaxique (texte, nombre, date, …) ainsi que son emplacement dans la structure d'information du document.
+
+famille
+:   La famille permet de donner une unité à un ensemble de document de même type sémantique (compte-rendu, facture, client, …). La famille défini la structure de l'information qui sera commune à l'ensemble des documents de cette famille. Cette structure est composée d'attributs du document. Elle défini aussi les règles de sécurités d'accès et l'accès au cycle de vie.
+
+vues
+:   Une vue de document désigne un représentation de celui-ci. Cette vue est généralement associé à un template qui lui confère un aspect particulier. Une permet aussi masquer ou de démasquer un ou plusieurs attributs du documents.
+
+cycle de vie
+:   Le cycle de vie définit l'ensemble des activités à réaliser, les états et transitions possibles du documents. Un cycle peut être associé à un document; dans ce cas le document est soumis aux contrôles imposé par le cycle. à chaque changement d'état, l'ancien état du document est conservé afin de tracer et de pouvoir voir les informations des états précédents.
+
+profil
+:   Le profil d'un document décrit une matrice de droits. Les droits les plus usuel sont 'voir','modifier', 'supprimer'. Pour chacun des ces droits, le profil défini quels groupes d'utilisateurs ou quels utilisateurs en particulier ont cette habilitation. Les droits des groupes sont propagés automatiquement sur les membres de groupes et des éventuels sous-groupes.Le même profil peut être partagé par plusieurs documents. Cela permet de modifier plus facilement les accès à un ensembles de document de même niveau de sécurité. Généralement, un même profil est partagé par les documents d'une même famille.
+
 ## La syntaxe markdown
 
 Nous allons maintenant voir différents points basiques de la syntaxe
