@@ -2,70 +2,76 @@
 
 ## Introduction
 
-Dans ce document, nous allons aborder :
+Ce document aborde les points suivants :
 
--   le choix de markdown comme outil rédiger la documentation de
-    Dynacase,
--   la syntaxe markdown utilisée pour la rédaction de la documentation,
--   les outils pour produire du markdown et avoir un premier aperçu,
--   les outils pour publier le markdown et le mettre à disposition de
-    DocDygen
+* Les règles de rédaction;
+* Le glossaire;
+* L'organisation du travail et les outils de production;
+* La syntaxe markdown;
+* Des annexes
 
-## Le choix de markdown
+## Les règles de rédaction
 
-Lors des choix pour la réalisation de la documentation, nous voulions un
-moyen de produire de la documentation qui combine les différents points
-suivants :
+Pour l'instant les règles identifiées sont :
 
--   facilité de rédaction,
--   simplicité de mise en page,
--   possibilité de réaliser la documentation par un ensemble d'éléments
-    unitaires facilement identifiables et composables,
--   possibilité d'établir un diff entre deux versions d'un élément de
-    documentation.
+* Il faut utiliser, autant que possible, le présent de vérité générale, car il exprime qu'un fait est vrai dans sa globalité quelque soit le contexte,
+* Il faut éviter d'utiliser les pronoms : je, tu, nous <class ="fixme CBO"> Eric, Yannick ? Expliquer ce choix</a>,
 
-Nous avons étudié les différents moyen de production à notre disposition
-et retenu markdown. Markdown est :
+## Le glossaire
 
-> Markdown est un langage de balisage léger créé par John Gruber et
-> Aaron Swartz. Le but de la syntaxe Markdown est d'offrir une syntaxe
-> facile à lire et à écrire. C'est-à-dire qu'un document formaté selon
-> Markdown devrait pouvoir être publié comme tel, en texte, sans donner
-> l’impression qu’il a été marqué par des balises ou des instructions de
-> formatage. Bien que la syntaxe Markdown ait été influencée par
-> plusieurs filtres de conversion de texte vers HTML existants —
-> incluant Setext, atx, Textile, reStructuredText, Grutatext et EtText —
-> la source d’inspiration principale de la syntaxe Markdown est le
-> format du courrier électronique en mode texte.
+Consultation
+:   Exprime la modalité permettant uniquement de consulter un document
 
-dixit wikipedia.
+Modification
+:   Exprime la modalité d'édition/modification d'un document
 
-Nous avons plus précisément retenu une variante de markdown qui est
-celle utilisée par le logiciel de conversion
-[pandoc](http://johnmacfarlane.net/pandoc/). Cette syntaxe nous semble
-idéal car elle permet :
+Lignée documentaire
+:   C'est l'ensemble des révisions d'un document
 
--   une mise en forme simple mais précise,
--   elle est stockée dans un fichier texte,
--   elle permet l'export vers au moins les trois formats suivants :
-    -   html,
-    -   odt,
-    -   pdf
+module
+:   Un module Dynacase contient la définition et l'ensemble des éléments nécessaires au fonctionnement de zéro, une ou plusieurs applications. Elle contient la définition et l'ensemble des éléments nécessaires (cycle de vie, profil, ….) à l'utilisation de zéro, une ou plusieurs familles.
 
--   et un document markdown est lisible tel quel sans traitement
-    particulier par quelqu'un ne connaissant pas la syntaxe
+application
+:   Une application Dynacase permet de couvrir une fonctionnalité spécifique au système documentaire (exemple: gestion des utilisateurs, administration des contrôle qualité). Une application utilise souvent une ou plusieurs familles de document afin de réaliser leurs fonctions. Une application Dynacase est composée de une à plusieurs actions. Une application possède généralement une interface principale qui permet d'accéder à l'ensemble des actions nécessaires à l'application. Une application est accessible directement par une url directe et est considéré comme autonome vis-à-vis d'autre application.
 
-## La syntaxe markdown-pandoc
+action
+:   Une action Dynacase réalise une fonction d'une application. Cette action reçoit des paramètres, réalise un traitement et retourne le résultat de ce traitement. L'action Dynacase est composée de deux parties : le traitement et la représentation du résultat du traitement. Chacune de ses deux parties est optionnelle mais il en faut au moins une des deux. Le traitement est réalisé à l'aide d'une fonction PHP qui utilise des fonctions de l'API Dynacase. La représentation est réalisée à l'aide d'un template (appelé aussi layout). Ce template permet de réaliser des sorties HTML avec des parties dynamiques.
+
+interface
+:   L'interface Dynacase est la représentation d'une action.
+
+template, layout
+:   Le template est le modèle de représentation. Ce modèle est généralement du HTML avec des parties dynamiques qui sont construite dans le traitement de l'action. Ce modèle peut aussi être n'importe de n'importe quel type ascii tel que csv ou xml.  Le seul modèle binaire possible est le format openDocumentText. Ce type de modèle permet d'avoir des représentations utilisables pour des besoins d'impressions. Ces modèles sont utilisés pour les représentations des actions et aussi pour les vues de documents.
+
+zone
+:   Une zone Dynacase est une action qui ne peut pas être appelée directement depuis l'interface principale. Une zone peut être considéré comme un fragment d'action. Sa représentation est souvent un fragment HTML (le contenu d'une DIV ou d'une TABLE). La zone est réutilisable dans différentes représentations d'actions. Elle permet de réutiliser des fragments d'interfaces dans les différentes interfaces de haut niveau. Une zone peut elle aussi faire référence à d'autres zones. On peut ainsi assembler des interfaces avec des niveaux différents réutilisable.
+
+document
+:   Le document Dynacase contient un ensemble structuré d'informations. Il peut être associé à un cycle de vie et porte ses propres paramètres de sécurité d'accès. Un document est toujours associé à une famille de document.
+
+attribut
+:   Un attribut de document défini un type syntaxique (texte, nombre, date, …) ainsi que son emplacement dans la structure d'information du document.
+
+famille
+:   La famille permet de donner une unité à un ensemble de document de même type sémantique (compte-rendu, facture, client, …). La famille défini la structure de l'information qui sera commune à l'ensemble des documents de cette famille. Cette structure est composée d'attributs du document. Elle défini aussi les règles de sécurités d'accès et l'accès au cycle de vie.
+
+vues
+:   Une vue de document désigne un représentation de celui-ci. Cette vue est généralement associé à un template qui lui confère un aspect particulier. Une permet aussi masquer ou de démasquer un ou plusieurs attributs du documents.
+
+cycle de vie
+:   Le cycle de vie définit l'ensemble des activités à réaliser, les états et transitions possibles du documents. Un cycle peut être associé à un document; dans ce cas le document est soumis aux contrôles imposé par le cycle. à chaque changement d'état, l'ancien état du document est conservé afin de tracer et de pouvoir voir les informations des états précédents.
+
+profil
+:   Le profil d'un document décrit une matrice de droits. Les droits les plus usuel sont 'voir','modifier', 'supprimer'. Pour chacun des ces droits, le profil défini quels groupes d'utilisateurs ou quels utilisateurs en particulier ont cette habilitation. Les droits des groupes sont propagés automatiquement sur les membres de groupes et des éventuels sous-groupes.Le même profil peut être partagé par plusieurs documents. Cela permet de modifier plus facilement les accès à un ensembles de document de même niveau de sécurité. Généralement, un même profil est partagé par les documents d'une même famille.
+
+## La syntaxe markdown
 
 Nous allons maintenant voir différents points basiques de la syntaxe
 pandoc-markdown.
 
 ### Paragraphe
 
-Un paragraphe est une ou plusieurs lignes de textes suivi de un ou
-plusieurs saut de ligne. Si vous avez besoin d'un saut de ligne au
-milieu d'un paragraphe deux syntaxes sont possibles : deux espaces ou \\
-suivi d'un saut de ligne.
+Un paragraphe est une ou plusieurs lignes de textes suivi de un ou plusieurs saut de ligne. Si vous avez besoin d'un saut de ligne au milieu d'un paragraphe deux syntaxes sont possibles : deux espaces ou \\ suivi d'un saut de ligne.
 
 ### Titre et sous titre
 
@@ -81,7 +87,7 @@ Il est possible de mettre en évidence du texte de manière différentes.
 
 L'emphase en utilisant la syntaxe suivante :
 
-    *Ceci merite votre attention*
+    *Ceci mérite votre attention*
 
 L'emphase importante en utilisant la syntaxe suivante :
 
@@ -311,56 +317,30 @@ suivante :
 
 <http://johnmacfarlane.net/pandoc/README.html>
 
-## Les outils de production local
+## Annexes
 
-Lorsque vous rédigez un texte en markdown. Il est pratique de pouvoir
-jeter rapidement un coup d'œil sur le HTML produit pour voir s'il
-correspond bien à ce que l'on attend.
+### Le choix de markdown
 
-Nous allons donc voir comment mettre en place rapidement une chaîne
-éditorial locale. Il vous faudra pour cela deux outils :
+Lors des choix pour la réalisation de la documentation, nous voulions un moyen de produire de la documentation qui combine les différents points suivants :
 
--   pandoc : dans sa dernière version,
--   le package markdown-pandoc pour gedit.
+-   La rédaction est facilitée de rédaction par la syntaxe;
+-   La mise en page est simplifiée;
+-   Le format permet de réaliser la documentation en composant un ensemble d'éléments unitaires facilement identifiables;
+-   possibilité d'établir un diff entre deux versions d'un élément de documentation;
+-   et que le document soit lisible tel quel sans traitement particulier par quelqu'un ne connaissant pas la syntaxe.
 
-Pour l'installation de pandoc, il vous faut tout d'abord installer
-haskell-platform et cabal, ceux-ci sont généralement livré dans les
-paquets d'installation des distribution Linux.\
-Vous devez ensuite effectuer les deux commandes suivantes :
+Nous avons étudié les différents moyen de production à notre disposition et retenu markdown car il est :
 
-    cabal update
-    cabal install pandoc -fhighlighting
+> Markdown est un langage de balisage léger créé par John Gruber et
+> Aaron Swartz. Le but de la syntaxe Markdown est d'offrir une syntaxe
+> facile à lire et à écrire. C'est-à-dire qu'un document formaté selon
+> Markdown devrait pouvoir être publié comme tel, en texte, sans donner
+> l’impression qu’il a été marqué par des balises ou des instructions de
+> formatage. Bien que la syntaxe Markdown ait été influencée par
+> plusieurs filtres de conversion de texte vers HTML existants —
+> incluant Setext, atx, Textile, reStructuredText, Grutatext et EtText —
+> la source d’inspiration principale de la syntaxe Markdown est le
+> format du courrier électronique en mode texte.
 
-Si cabal n'est pas à jour, vous pouvez utilisez la commande suivante :
+dixit wikipedia.
 
-    sudo cabal install --prefix=/usr cabal-install
-
-Ces éléments sont installés pour l'utilisateur en cours, il vous faut
-donc ensuite créer les liens symboliques suivants :
-
-    sudo ln -s /home/user/.cabal/bin/pandoc /usr/local/bin/pandoc
-    sudo ln -s /home/user/.cabal/bin/markdown2pdf /usr/local/bin/markdown2pdf
-
-Si vous souhaitez installer pandoc en root, vous pouvez utilisez la
-commande suivante:
-
-    cabal install --prefix=/usr pandoc --fhighlighting
-
-Vous avez maintenant accès aux deux commandes pandoc et markdown2pdf.
-
-Pour finir votre chaine éditorial, il vous reste à télécharger et
-exécuter le package gedit-markdown. Vous pouvez le trouver à l'adresse
-suivante :
-
-<https://github.com/cbonnissent/gedit-markdown>
-
-Vous pouvez soit le cloner avec git, soit le télécharger zippé dans les
-deux cas une fois prêt. Vous n'avez plus qu'à lancer le script
-gedit-markdown.sh et à répondre aux questions.\
-Une fois cet élément installé votre gedit va coloriser le markdown (mais
-pas les éléments spécifiques à pandoc) et vous pourrez avoir un preview
-de votre document avec le raccourcis clavier <Maj+Alt+P\>.
-
-## Les outils de publication sur DocDygen
-
-Voir la documentation de DocDygen.
